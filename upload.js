@@ -49,7 +49,6 @@ function uploadImage() {
   );
 }
 
-
 document.getElementById('imageUpload').addEventListener('change', uploadImage);
 
 document.getElementById('audioUpload').addEventListener('change', uploadAudio);
@@ -103,35 +102,30 @@ function generateRandomDirectoryName() {
   return `sounds/${randomString}`;
 }
 
-
-
-// Funktion zum Hochladen der Datei und Aktualisieren des Audio-Players
 function uploadFileAndSetAudioSource(file) {
-  // Datei-Referenz im Storage
+
   const fileRef = storageRef.child(file.name);
 
-  // Datei hochladen
   const uploadTask = fileRef.put(file);
 
-  // Fortschrittsbalken aktualisieren
   uploadTask.on('state_changed',
     function(snapshot) {
-      // Fortschritt in Prozent berechnen
+
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log('Upload is ' + progress + '% done');
-      // Hier kannst du den Fortschrittsbalken aktualisieren
+
     },
     function(error) {
-      // Bei einem Fehler während des Uploads
+
       console.error('Error uploading file:', error);
     },
     function() {
-      // Wenn der Upload abgeschlossen ist
+
       console.log('File uploaded successfully');
-      // Datei-URL abrufen
+
       fileRef.getDownloadURL().then(function(url) {
         console.log('File URL:', url);
-        // Audio-Player aktualisieren
+
         const audioPlayer = document.getElementById('audioPlayer');
         audioPlayer.src = url;
       }).catch(function(error) {
@@ -141,16 +135,14 @@ function uploadFileAndSetAudioSource(file) {
   );
 }
 
-// Event-Handler für das Ändern des Datei-Eingabe-Elements
 function handleFileInputChange(event) {
   const file = event.target.files[0];
   uploadFileAndSetAudioSource(file);
 }
 
-// Event-Handler für das Laden der Seite
 document.addEventListener('DOMContentLoaded', function() {
   const fileInput = document.getElementById('myfile');
-  // Event-Handler für Datei-Eingabe hinzufügen
+
   fileInput.addEventListener('change', handleFileInputChange);
 });
 
