@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>HTML</title>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Place your HTML content here -->
+  Select Image:<br>
+  <label for="imageUpload">
+    <img id="imagePreview" src="img/default.jpeg" ><br><br>
+  </label>
+  <input type="file" id="imageUpload" style="display: none;"><br><br>
+  Name: <br>
+  <input id="soundNameInput" width="200px" height="20px"><br><br>
+  <button onclick="uploadSound()">Select Audio File <i class="fa-solid fa-plus"></i></button><br><br>
+  <audio id="audioPlayer" src="" controls>
+  <source src="default_audio_preview.mp3" type="audio/mpeg">
+  Ihr Browser unterstützt das Audio-Element nicht.
+</audio>
+
+  <button id="uploadButton" onclick="addSound()">Upload <i class="fa-solid fa-plus"></i></button><input type="file" id="myfile" name="Audio file">
+  
+  <div id="container">
+    <div id="sounds">
+      <div id="soundsList"></div> <!-- Hier wird die Liste der Sounds angezeigt -->
+    </div>
+  </div>
+
+  <div id="selectedFiles"></div> <!-- Hier werden ausgewählte Dateinamen angezeigt -->
+
+  <input type="file" id="audioUpload" style="display: none;">
+</body>
+
+
+
+
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-storage.js"></script>
+
+  
+  <!-- Your JavaScript code -->
+  <script src="upload.js"></script>
+</body>
+</html>
