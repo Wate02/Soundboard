@@ -28,40 +28,12 @@ button {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-#box1 {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-image: url("img/ta.png");
-  text-align: center;
-  color: white;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  width: 100%;
-  
-}
+
 
 .topnav {
   display: none;
 }
 
-a {
-  
-  text-decoration: none;
-  color: white; 
-  text-shadow: 0.2px 0.2px black;
-
-}
-
-#article {
-  padding-left: 20px;
-  word-wrap: break-word;
-}
-
-#articleimg1 {
-  float: left;
-  padding-right: 20px;
-}
 
 .card {
   margin: 1rem;
@@ -77,47 +49,6 @@ a {
   min-height: 200px;
 }
 
-#article {
-  background: #03175940;
-  padding: 10px;
-
-
-}
-
-footer {
-  background-color: #333;
-  color: white;
-  width: 100%;
-  text-align: center;
-}
-
-#cards {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-#idk69 {
-  text-align: center;
-  color: white;
-}
-
-/* Join.html ---------------- */
-#copyjava {
-  border-radius: 5px;
-  color: #000;
-  background-color: transparent;
-  border: 0.5px solid white;
-  padding: 10px;
-  color: white;
-  float: center;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-
-}
-
 
 #container {
   align-items: center;
@@ -127,18 +58,6 @@ footer {
   padding-bottom: 20px;
 }
 
-#copiedjavamsg {
-  color: white;
-  z-index: 1;
-  
-  
-}
-
-#copiedjavamsg {
-  color: white;
-  z-index: 1;
-  
-}
 
 
 
