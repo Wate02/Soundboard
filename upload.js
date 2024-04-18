@@ -1,5 +1,5 @@
 const firebaseConfig = {
- apiKey: "AIzaSyA5q-IP6wzpGciBrfEQSTdxZhPv-VyBIxk",
+ apiKey: "${{ APIKEY }}",
  authDomain: "soundboard-d566d.firebaseapp.com",
  projectId: "soundboard-d566d",
  storageBucket: "soundboard-d566d.appspot.com",
