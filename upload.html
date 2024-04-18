@@ -13,18 +13,19 @@
   <!-- Place your HTML content here -->
   Select Image:<br>
   <label for="imageUpload">
-    <img id="imagePreview" src="img/default.jpeg" ><br><br>
+    <img id="imagePreview" src="img/default.jpeg" ><br>
   </label>
-  <input type="file" id="imageUpload" style="display: none;"><br><br>
+  <input type="file" id="imageUpload" style="display: none;"><br>
   Name: <br>
   <input id="soundNameInput" width="200px" height="20px"><br><br>
-  <button onclick="uploadSound()">Select Audio File <i class="fa-solid fa-plus"></i></button><br><br>
+  Audio: <br>
+<input type="file" id="myfile" name="Audio file"><br><br>
   <audio id="audioPlayer" src="" controls>
   <source src="default_audio_preview.mp3" type="audio/mpeg">
   Ihr Browser unterstützt das Audio-Element nicht.
 </audio>
-
-  <button id="uploadButton" onclick="addSound()">Upload <i class="fa-solid fa-plus"></i></button><input type="file" id="myfile" name="Audio file">
+<br><br>
+  <button id="uploadButton" onclick="addSound()">Upload <i class="fa-solid fa-plus"></i></button>
   
   <div id="container">
     <div id="sounds">
