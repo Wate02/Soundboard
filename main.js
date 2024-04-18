@@ -75,7 +75,9 @@ function displaySoundsAsList() {
 
 
 
-
+function report() {
+  window.location.replace("https://github.com/Wate02/Soundboard/issues");
+}
 
 function shit() {
   // Example call to the addSound function
