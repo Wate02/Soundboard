@@ -1,3 +1,4 @@
+//window.location.replace("index.html");
 const firebaseConfig = {
  apiKey: "${{ APIKEY }}",
  authDomain: "soundboard-d566d.firebaseapp.com",
