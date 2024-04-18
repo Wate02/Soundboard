@@ -154,3 +154,38 @@ document.addEventListener('DOMContentLoaded', function() {
   // Event-Handler für Datei-Eingabe hinzufügen
   fileInput.addEventListener('change', handleFileInputChange);
 });
+
+function uploadAudio() {
+  const file = document.getElementById('audioUpload').files[0];
+  const audioRef = storageRef.child('audio/' + file.name);
+
+  const progressBar = document.createElement('progress');
+  document.getElementById('selectedFiles').appendChild(progressBar);
+
+  audioRef.put(file).on('state_changed',
+    function(snapshot) {
+
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      progressBar.value = progress;
+
+    },
+    function(error) {
+      console.error('Fehler beim Hochladen der Audiodatei:', error);
+    },
+    function() {
+
+      progressBar.remove();
+
+      audioRef.getDownloadURL().then(function(url) {
+
+        document.getElementById('audioPlayer').src = url;
+
+        const name = document.getElementById('soundNameInput').value;
+        databaseRef.push({
+          name: name,
+          audioUrl: url
+        });
+      });
+    }
+  );
+}
