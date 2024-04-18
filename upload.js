@@ -116,37 +116,46 @@ function generateRandomDirectoryName() {
 }
 
 function uploadFileAndSetAudioSource(file) {
+  // Specify the path in Firebase Storage for the file to be uploaded to /sounds
+  const fileRef = storageRef.child('sounds/' + file.name);
 
-  const fileRef = storageRef.child(file.name);
-
+  // Start the file upload task
   const uploadTask = fileRef.put(file);
 
-  uploadTask.on('state_changed',
+  // Listen for state changes during the file upload
+  uploadTask.on(
+    'state_changed',
     function(snapshot) {
-
+      // Calculate upload progress and log it to the console
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log('Upload is ' + progress + '% done');
-
     },
     function(error) {
-
+      // Handle any errors that may occur during the upload
       console.error('Error uploading file:', error);
     },
     function() {
-
+      // Handle successful file upload
       console.log('File uploaded successfully');
 
-      fileRef.getDownloadURL().then(function(url) {
-        console.log('File URL:', url);
+      // Retrieve the download URL for the uploaded file
+      fileRef.getDownloadURL()
+        .then(function(url) {
+          // Log the file URL to the console
+          console.log('File URL:', url);
 
-        const audioPlayer = document.getElementById('audioPlayer');
-        audioPlayer.src = url;
-      }).catch(function(error) {
-        console.error('Error getting download URL:', error);
-      });
+          // Update the audio player source with the uploaded file's URL
+          const audioPlayer = document.getElementById('audioPlayer');
+          audioPlayer.src = url;
+        })
+        .catch(function(error) {
+          // Handle any errors that may occur while retrieving the download URL
+          console.error('Error getting download URL:', error);
+        });
     }
   );
 }
+
 
 function handleFileInputChange(event) {
   const file = event.target.files[0];
