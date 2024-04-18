@@ -48,11 +48,11 @@ function uploadImage() {
             document.getElementById('imagePreview').src = url;
 
             // Add image data to the database
-            const name = document.getElementById('soundNameInput').value;
-            databaseRef.push({
-              name: name,
-              imageUrl: url
-            });
+            //const name = document.getElementById('soundNameInput').value;
+           // databaseRef.push({
+          //    name: name,
+    //          imageUrl: url
+         //   });
           });
         }
       );
@@ -65,8 +65,6 @@ function uploadImage() {
 
 
 document.getElementById('imageUpload').addEventListener('change', uploadImage);
-
-document.getElementById('audioUpload').addEventListener('change', uploadAudio);
 
 function filePicker() {
   return new Promise((resolve, reject) => {
@@ -186,11 +184,11 @@ function uploadAudio() {
 
         document.getElementById('audioPlayer').src = url;
 
-        const name = document.getElementById('soundNameInput').value;
-        databaseRef.push({
-          name: name,
-          audioUrl: url
-        });
+        //const name = document.getElementById('soundNameInput').value;
+        //databaseRef.push({
+        //name: name,
+        // audioUrl: url
+       // });
       });
     }
   );
