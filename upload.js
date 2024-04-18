@@ -16,38 +16,53 @@ const databaseRef = firebase.database().ref();
 
 function uploadImage() {
   const file = document.getElementById('imageUpload').files[0];
-  const imageRef = storageRef.child('images/' + file.name);
 
-  const progressBar = document.createElement('progress');
-  document.getElementById('selectedFiles').appendChild(progressBar);
+  // Create a new instance of Compressor using the uploaded file
+  new Compressor(file, {
+    quality: 0.01, // Adjust the compression quality (0.8 means 80%)
+    width: 500,
+    height: 500,
+    success(compressedFile) {
+      // Use the compressed file for uploading
+      const imageRef = storageRef.child('images/' + compressedFile.name);
 
-  imageRef.put(file).on('state_changed',
-    function(snapshot) {
+      const progressBar = document.createElement('progress');
+      document.getElementById('selectedFiles').appendChild(progressBar);
 
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      progressBar.value = progress;
+      imageRef.put(compressedFile).on('state_changed',
+        function(snapshot) {
+          // Update progress bar
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          progressBar.value = progress;
+        },
+        function(error) {
+          console.error('Error uploading image:', error);
+        },
+        function() {
+          // Remove progress bar when upload completes
+          progressBar.remove();
 
+          // Get the download URL of the uploaded image
+          imageRef.getDownloadURL().then(function(url) {
+            // Display the uploaded image
+            document.getElementById('imagePreview').src = url;
+
+            // Add image data to the database
+            const name = document.getElementById('soundNameInput').value;
+            databaseRef.push({
+              name: name,
+              imageUrl: url
+            });
+          });
+        }
+      );
     },
-    function(error) {
-      console.error('Fehler beim Hochladen des Bildes:', error);
-    },
-    function() {
-
-      progressBar.remove();
-
-      imageRef.getDownloadURL().then(function(url) {
-
-        document.getElementById('imagePreview').src = url;
-
-        const name = document.getElementById('soundNameInput').value;
-        databaseRef.push({
-          name: name,
-          imageUrl: url
-        });
-      });
+    error(err) {
+      console.error('Error compressing image:', err);
     }
-  );
+  });
 }
+
 
 document.getElementById('imageUpload').addEventListener('change', uploadImage);
 
