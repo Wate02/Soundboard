@@ -90,8 +90,7 @@ function addSound() {
   databaseRef.push(newSound)
     .then(() => {
       console.log("Sound added successfully!");
-
-      displaySoundsAsList();
+      window.location.replace("index.html");
     })
     .catch((error) => {
       console.error("Error adding sound:", error);
