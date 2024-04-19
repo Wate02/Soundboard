@@ -65,10 +65,12 @@ button {
 #soundsList {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 20px; 
-  justify-content: center; 
-  max-width: 800px;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1000px;
   text-align: center;
+  margin: 0 auto;
+  
 }
 
 .soundcard {
