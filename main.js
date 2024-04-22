@@ -151,7 +151,7 @@ currentAudio.pause();
 }
 
 function openNav() {
-  var x = document.getElementById("DevTools");
+  var x = document.getElementById("options");
   if (x.style.display === "block") {
     x.style.display = "none";
   } else {

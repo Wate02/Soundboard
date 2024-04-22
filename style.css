@@ -118,7 +118,7 @@ transition: transform 0.2s;
 transform: scale(1.1);
 }
 
-#DevTools{
+#options{
   display: none;
   padding-top: 20px;
   padding-bottom: 20px; 
