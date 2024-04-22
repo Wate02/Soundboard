@@ -21,8 +21,8 @@ function uploadImage() {
   // Create a new instance of Compressor using the uploaded file
   new Compressor(file, {
     quality: 0.01, // Adjust the compression quality (0.8 means 80%)
-    width: 500,
-    height: 500,
+ //   width: 500,
+   // height: 500,
     success(compressedFile) {
       // Use the compressed file for uploading
       const imageRef = storageRef.child('images/' + compressedFile.name);
