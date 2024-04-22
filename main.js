@@ -145,3 +145,7 @@ function play(audioUrl) {
 
   currentAudio = audio; 
 }
+
+function stopbutton(){
+currentAudio.pause(); 
+}
