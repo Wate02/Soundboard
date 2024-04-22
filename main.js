@@ -158,3 +158,41 @@ function openNav() {
     x.style.display = "block";
   }
 }
+
+
+//fab toggle
+
+function toggleFab() {
+    const fabElement = document.querySelector('.fab');
+    
+
+    if (fabElement.style.display === 'none' || fabElement.style.display === '') {
+        fabElement.style.display = 'block';
+
+        localStorage.setItem('fabVisibility', 'visible');
+    } else {
+
+        fabElement.style.display = 'none';
+        localStorage.setItem('fabVisibility', 'hidden');
+    }
+}
+
+
+function restoreFabVisibility() {
+
+    const fabVisibility = localStorage.getItem('fabVisibility');
+    
+
+    const fabElement = document.querySelector('.fab');
+    
+
+    if (fabVisibility === 'visible') {
+        fabElement.style.display = 'block';
+    } else if (fabVisibility === 'hidden') {
+        fabElement.style.display = 'none';
+    }
+}
+
+
+window.addEventListener('load', restoreFabVisibility);
+
