@@ -16,6 +16,10 @@ text-shadow: 0.2px 0.2px black;
 
 }
 
+h2 {
+  font-size: 1.3em;
+}
+
 button {
   border-radius: 5px;
   color: white;
@@ -112,4 +116,10 @@ transition: transform 0.2s;
 
 .fab:hover {
 transform: scale(1.1);
+}
+
+#DevTools{
+  display: none;
+  padding-top: 20px;
+  padding-bottom: 20px; 
 }

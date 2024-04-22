@@ -149,3 +149,12 @@ function play(audioUrl) {
 function stopbutton(){
 currentAudio.pause(); 
 }
+
+function openNav() {
+  var x = document.getElementById("DevTools");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
