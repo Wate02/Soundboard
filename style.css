@@ -124,3 +124,24 @@ transform: scale(1.1);
   padding-top: 20px;
   padding-bottom: 20px; 
 }
+
+.light-mode {
+  background-color: #fff;
+  color: #000;
+
+}
+
+.light-mode text {
+  color: #000;
+
+}
+
+.light-mode button {
+  color: #000 !important;
+  border-radius: 5px;
+  color: black;
+  background-color: transparent;
+  border: 0.5px solid black;
+  padding: 10px;
+}
+

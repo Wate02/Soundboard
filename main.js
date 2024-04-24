@@ -196,3 +196,33 @@ function restoreFabVisibility() {
 
 window.addEventListener('load', restoreFabVisibility);
 
+
+
+// lightmode
+const lightModeEnabled = localStorage.getItem('lightMode') === 'enabled';
+
+
+function enableLightMode() {
+    document.body.classList.add('light-mode');
+    localStorage.setItem('lightMode', 'enabled');
+}
+
+
+function disableLightMode() {
+    document.body.classList.remove('light-mode');
+    localStorage.setItem('lightMode', null);
+}
+
+
+if (lightModeEnabled) {
+    enableLightMode();
+}
+
+
+document.getElementById('Lightmodebtn').addEventListener('click', () => {
+    if (document.body.classList.contains('light-mode')) {
+        disableLightMode();
+    } else {
+        enableLightMode();
+    }
+});
