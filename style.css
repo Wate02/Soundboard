@@ -146,6 +146,27 @@ transform: scale(1.1);
   box-shadow: none;
 }
 
+
+.light-mode .fab {
+position: fixed;
+bottom: 20px;
+right: 20px;
+background-color: #6200ea;
+color: white !important;
+border: none;
+border-radius: 50%;
+width: 56px;
+height: 56px;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 24px;
+cursor: pointer;
+box-shadow: none;
+transition: transform 0.2s;
+}
+
+
 @media (min-width: 768px) {
     nav {
         padding-left: 40px; /* Erhöht das Padding auf 40px */
