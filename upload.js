@@ -225,3 +225,7 @@ if (lightModeEnabled) {
 }
 
 
+function back() {
+  window.location.href = '../';
+
+}

@@ -9,7 +9,8 @@
   <!-- Custom Styles -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="padding-left: 20px; padding-top: 20px;">
+    <h2>Upload Sound</h2>
   Select Image:<br>
   <label for="imageUpload">
     <img id="imagePreview" src="img/default.jpeg" ><br>
@@ -25,6 +26,7 @@
 </audio>
 <br><br>
   <button id="uploadButton" onclick="addSound()">Upload <i class="fa-solid fa-plus"></i></button>
+  <button onclick="back()">&larr; Back</button>
   
   <div id="container">
     <div id="sounds">
