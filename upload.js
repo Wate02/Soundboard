@@ -203,3 +203,25 @@ function uploadAudio() {
     }
   );
 }
+
+// lightmode
+const lightModeEnabled = localStorage.getItem('lightMode') === 'enabled';
+
+
+function enableLightMode() {
+    document.body.classList.add('light-mode');
+    localStorage.setItem('lightMode', 'enabled');
+}
+
+
+function disableLightMode() {
+    document.body.classList.remove('light-mode');
+    localStorage.setItem('lightMode', null);
+}
+
+
+if (lightModeEnabled) {
+    enableLightMode();
+}
+
+
