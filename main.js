@@ -73,6 +73,10 @@ function shit() {
 
 }
 
+function displayrandom() {
+  window.location.replace("https://wate02.github.io/Soundboard/list/random");
+}
+
 function bypass() {
   displaySoundsAsList();
 }

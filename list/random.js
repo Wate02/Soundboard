@@ -83,6 +83,10 @@ function shit() {
 
 }
 
+function displayrandom() {
+  window.location.replace("https://wate02.github.io/Soundboard/");
+}
+
 function bypass() {
   displaySoundsAsList();
 }
