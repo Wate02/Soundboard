@@ -28,20 +28,30 @@ function addSound(name, url, img) {
 }
 
 function displaySoundsAsList() {
-
     soundsRef.once('value', (snapshot) => {
         const soundsList = document.getElementById('soundsList');
 
         soundsList.innerHTML = '';
 
+        const soundsArray = [];
+
         snapshot.forEach((childSnapshot) => {
             const soundData = childSnapshot.val();
+            soundsArray.push(soundData);
+        });
 
+        // Shuffle the soundsArray
+        for (let i = soundsArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [soundsArray[i], soundsArray[j]] = [soundsArray[j], soundsArray[i]];
+        }
+
+        soundsArray.forEach((soundData) => {
             const soundCard = document.createElement('div');
             soundCard.classList.add('soundcard');
 
             const imgElement = document.createElement('img');
-            imgElement.src = soundData.Img; 
+            imgElement.src = soundData.Img;
             imgElement.id = 'thumbnail';
 
             imgElement.onclick = function() {
@@ -51,7 +61,7 @@ function displaySoundsAsList() {
             soundCard.appendChild(imgElement);
 
             const nameElement = document.createElement('text');
-            nameElement.textContent = soundData.Name; 
+            nameElement.textContent = soundData.Name;
             nameElement.id = 'nametext';
 
             soundCard.appendChild(nameElement);
