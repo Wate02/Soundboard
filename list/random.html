@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Ios Webapp -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" href="img/default.jpeg">
+   <!-- Ios Webapp -->
+  
+  <title>Soundboard</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" type="image/jpeg" href="img/default.jpeg">
+  <script src="https://kit.fontawesome.com/af7de7fd0e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav>
+  <h2>wate02.github.io/Soundboard/random</h2>
+ 
+  <button onclick="uploadsite()"><i class="fa-solid fa-plus"></i> Upload Sound</button>
+  <button onclick="report()"><i class="fa-solid fa-triangle-exclamation"></i> Report Issue </button>
+  <button onclick="openNav()"><i class="fa-solid fa-wrench"></i> Options</button><div id="options">
+   <button onclick="shit)">Write Test</button>
+  <button onclick="bypass()">Read Database</button>
+   <button onclick="toggleFab()">Toggle Pause Button</button>
+   <button id="Lightmodebtn"><i class="fa-solid fa-moon"></i> Toggle Design </button>
+  </div>
+  </nav>
+  <br><br>
+  <div id="container">
+    <div id="sounds">
+      <div id="soundsList"></div> 
+    </div>
+  </div>
+  
+  
+  <button class="fab" onclick="stopbutton()"><i class="fa-solid fa-pause"></i></button>
+
+<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-storage.js"></script>
+  <script src="random.js"></script>
+</body>
+</html>
