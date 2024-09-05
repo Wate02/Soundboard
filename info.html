@@ -2,35 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    
     <title>Sound Info</title>
     <style>
-        #soundInfo {
-            text-align: center;
-            margin-top: 20px;
-        }
+   body {
+     font-family: Arial, sans-serif;
+     margin: 20px;
+     background-color: #f4f4f4;
+   }
 
-        #soundImage {
-            max-width: 200px;
-            margin-top: 10px;
-        }
-    </style>
+   #soundImage {
+     width: 200px;
+     height: auto;
+     display: block;
+     margin-bottom: 20px;
+   }
+
+   #soundName {
+     font-size: 24px;
+     margin-bottom: 10px;
+   }
+
+   #soundPlays {
+     font-size: 18px;
+     margin-bottom: 20px;
+   }
+
+   button {
+     padding: 10px 20px;
+     font-size: 16px;
+     margin-right: 10px;
+     cursor: pointer;
+   }
+
+   #playSoundButton {
+     background-color: #4CAF50;
+     color: white;
+     border: none;
+   }
+
+   #downloadSoundButton {
+     background-color: #008CBA;
+     color: white;
+     border: none;
+   }
+   
+    body {
+      display: grid;
+      place-items: center;
+      min-height: 60vh;
+      margin: 0;
+      
+    }
+    
+    .content {
+    display: grid;
+    text-align: center;
+    background: white;
+    padding: 0px;
+    border-radius: 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+   }
+ </style>
+ <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Sound Information</h1>
-    <div id="soundInfo">
-        <img id="soundImage" src="" alt="Sound Image" />
-        <p id="soundName"></p>
-        <button id="playButton">Play Sound</button>
-        <button id="downloadButton">Download</button>
-    </div>
+    <h1 id="soundName">Sound Name</h1>
+    <img id="soundImage" src="" alt="Sound Image">
+    <p id="soundPlays">Plays: 0</p>
+    <button id="playSoundButton">Play Sound</button>
+    <button id="downloadSoundButton">Download Sound</button>
 
-    <!-- Einbindung der älteren Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-
     <script>
         // Firebase-Konfiguration
         const firebaseConfig = {
@@ -45,44 +94,89 @@
 
         // Firebase initialisieren
         firebase.initializeApp(firebaseConfig);
+        const soundsRef = firebase.database().ref('Sounds');
 
-        const db = firebase.database();
-        const soundsRef = db.ref('Sounds');
-
-        // Funktion zum Abrufen des Query-Parameters
-        function getQueryParam(param) {
+        // Funktion zum Anzeigen der Soundinformationen
+        function displaySoundInfo() {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
+            const soundName = urlParams.get('name');
 
-        // Abrufen des Namens aus der URL
-        const soundName = getQueryParam('name');
+            if (!soundName) {
+                console.error('No sound name provided in the URL.');
+                return;
+            }
 
-        if (soundName) {
+            // Suche nach dem Sound anhand des Namens
             soundsRef.orderByChild('Name').equalTo(soundName).once('value', (snapshot) => {
                 if (snapshot.exists()) {
-                    const soundData = Object.values(snapshot.val())[0];
-                    document.getElementById('soundName').textContent = `Name: ${soundData.Name}`;
-                    document.getElementById('soundImage').src = soundData.Img;
+                    snapshot.forEach((childSnapshot) => {
+                        const soundData = childSnapshot.val();
+                        const soundKey = childSnapshot.key;
 
-                    // Play-Button für den Sound
-                    document.getElementById('playButton').onclick = () => {
-                        const audio = new Audio(soundData.Url);
-                        audio.play();
-                    };
+                        // Setze Bild, Name und Anzahl der Abspiele
+                        document.getElementById('soundImage').src = soundData.Img;
+                        document.getElementById('soundName').textContent = soundData.Name;
+                        document.getElementById('soundPlays').textContent = `Plays: ${soundData.Plays || 0}`;
 
-                    // Download-Button für den Sound
-                    document.getElementById('downloadButton').onclick = () => {
-                        window.open(soundData.Url, '_blank');
-                    };
+                        // Play-Button
+                        document.getElementById('playSoundButton').onclick = function () {
+                            play(soundData.Url, soundKey, soundData.Plays || 0);
+                        };
+
+                        // Download-Button
+                        document.getElementById('downloadSoundButton').onclick = function () {
+                            downloadSound(soundData.Url, soundData.Name);
+                        };
+                    });
                 } else {
-                    document.getElementById('soundInfo').textContent = 'Sound not found.';
+                    console.error('Sound not found in the database.');
                 }
             }).catch((error) => {
-                console.error('Error retrieving sound data:', error);
+                console.error('Error fetching sound info:', error);
             });
-        } else {
-            document.getElementById('soundInfo').textContent = 'No sound name provided in URL.';
+        }
+
+        // Aufrufen der Funktion beim Laden der Seite
+        window.onload = displaySoundInfo;
+
+        // Funktion zum Abspielen des Sounds
+        let currentAudio = null;
+
+        function play(audioUrl, soundKey, currentCount) {
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+
+            const audio = new Audio(audioUrl);
+            audio.muted = false;
+            audio.play();
+
+            // Aktualisiere den Abspielzähler in der Datenbank
+            updatePlayCount(soundKey, currentCount + 1);
+
+            currentAudio = audio;
+        }
+
+        // Funktion zum Aktualisieren des Abspielzählers
+        function updatePlayCount(soundKey, newCount) {
+            soundsRef.child(soundKey).update({ Plays: newCount })
+                .then(() => {
+                    console.log(`Play count updated to ${newCount}`);
+                    document.getElementById('soundPlays').textContent = `Plays: ${newCount}`;
+                })
+                .catch((error) => {
+                    console.error('Error updating play count:', error);
+                });
+        }
+
+        // Funktion zum Herunterladen des Sounds
+        function downloadSound(url, name) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${name}.mp3`; // Name des herunterzuladenden Sounds
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     </script>
 </body>
