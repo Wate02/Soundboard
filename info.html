@@ -64,9 +64,7 @@
     padding: 0px;
     border-radius: 0px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-   }
+    }
  </style>
  <link rel="stylesheet" href="style.css">
 </head>
@@ -76,6 +74,7 @@
     <p id="soundPlays">Plays: 0</p>
     <button id="playSoundButton">Play Sound</button>
     <button id="downloadSoundButton">Download Sound</button>
+    <button onclick="indexpage()" id="indexpagebtn">&larr; Back </button>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
@@ -178,6 +177,11 @@
             link.click();
             document.body.removeChild(link);
         }
+    </script>
+    <script>
+      function indexpage() {
+      window.location.replace("../index.html");
+      }
     </script>
 </body>
 </html>
