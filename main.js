@@ -28,10 +28,8 @@ function addSound(name, url, img) {
 }
 
 function displaySoundsAsList() {
-
     soundsRef.once('value', (snapshot) => {
         const soundsList = document.getElementById('soundsList');
-
         soundsList.innerHTML = '';
 
         snapshot.forEach((childSnapshot) => {
@@ -54,14 +52,20 @@ function displaySoundsAsList() {
             nameElement.textContent = soundData.Name; 
             nameElement.id = 'nametext';
 
-            soundCard.appendChild(nameElement);
+            // Event-Listener für Klick auf den Namen
+            nameElement.onclick = function() {
+                // Erstelle eine URL mit dem Namen als Query-Parameter
+                window.location.href = `info.html?name=${encodeURIComponent(soundData.Name)}`;
+            };
 
+            soundCard.appendChild(nameElement);
             soundsList.appendChild(soundCard);
         });
     }).catch((error) => {
         console.error('Error reading sounds: ', error);
     });
 }
+
 
 function report() {
   window.location.replace("https://github.com/Wate02/Soundboard/issues");

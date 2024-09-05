@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Sound Info</title>
+    <style>
+        #soundInfo {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #soundImage {
+            max-width: 200px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sound Information</h1>
+    <div id="soundInfo">
+        <img id="soundImage" src="" alt="Sound Image" />
+        <p id="soundName"></p>
+        <button id="playButton">Play Sound</button>
+        <button id="downloadButton">Download</button>
+    </div>
+
+    <!-- Einbindung der älteren Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+    <script>
+        // Firebase-Konfiguration
+        const firebaseConfig = {
+            apiKey: "${{ APIKEY }}",
+            authDomain: "soundboard-d566d.firebaseapp.com",
+            projectId: "soundboard-d566d",
+            storageBucket: "soundboard-d566d.appspot.com",
+            messagingSenderId: "568367814492",
+            appId: "1:568367814492:web:0b1df119b74ac90c345399",
+            measurementId: "G-6V1CJ3ZQWF"
+        };
+
+        // Firebase initialisieren
+        firebase.initializeApp(firebaseConfig);
+
+        const db = firebase.database();
+        const soundsRef = db.ref('Sounds');
+
+        // Funktion zum Abrufen des Query-Parameters
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Abrufen des Namens aus der URL
+        const soundName = getQueryParam('name');
+
+        if (soundName) {
+            soundsRef.orderByChild('Name').equalTo(soundName).once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    const soundData = Object.values(snapshot.val())[0];
+                    document.getElementById('soundName').textContent = `Name: ${soundData.Name}`;
+                    document.getElementById('soundImage').src = soundData.Img;
+
+                    // Play-Button für den Sound
+                    document.getElementById('playButton').onclick = () => {
+                        const audio = new Audio(soundData.Url);
+                        audio.play();
+                    };
+
+                    // Download-Button für den Sound
+                    document.getElementById('downloadButton').onclick = () => {
+                        window.open(soundData.Url, '_blank');
+                    };
+                } else {
+                    document.getElementById('soundInfo').textContent = 'Sound not found.';
+                }
+            }).catch((error) => {
+                console.error('Error retrieving sound data:', error);
+            });
+        } else {
+            document.getElementById('soundInfo').textContent = 'No sound name provided in URL.';
+        }
+    </script>
+</body>
+</html>
