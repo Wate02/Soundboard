@@ -226,6 +226,6 @@ if (lightModeEnabled) {
 
 
 function back() {
-  window.location.href = '../';
+  window.location.href = 'https://wate02.github.io/Soundboard';
 
 }
