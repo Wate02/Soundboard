@@ -189,3 +189,9 @@ opacity: 40%;
   background-color: black;
   opacity: 40%;
 }
+
+#soundImage {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+}
